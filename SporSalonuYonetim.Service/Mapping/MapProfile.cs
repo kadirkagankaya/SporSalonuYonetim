@@ -8,18 +8,21 @@ namespace SporSalonuYonetim.Service.Mapping
     {
         public MapProfile()
         {
-            // User Mapping
             CreateMap<User, UserDto>().ReverseMap();
-            CreateMap<UserCreateDto, User>();
+            CreateMap<UserCreateDto, User>()
+                .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.Password));
             CreateMap<UserUpdateDto, User>();
-
-            // Trainer Mapping
             CreateMap<Trainer, TrainerDto>().ReverseMap();
             CreateMap<TrainerCreateDto, Trainer>();
             CreateMap<TrainerUpdateDto, Trainer>();
 
-            // SubscriptionType Mapping (DTO'su yoksa direkt entity veya boş bir map)
-            // Bu örnekte SubscriptionType için ayrı DTO açmadık ama gerekirse ekleriz.
+            
+            CreateMap<SubscriptionType, SubscriptionTypeDto>().ReverseMap();
+            CreateMap<SubscriptionTypeCreateDto, SubscriptionType>();
+
+        
+            CreateMap<WorkoutProgram, WorkoutProgramDto>().ReverseMap();
+            CreateMap<WorkoutProgramCreateDto, WorkoutProgram>();
         }
     }
 }
