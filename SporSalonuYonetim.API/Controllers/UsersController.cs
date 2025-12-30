@@ -7,8 +7,11 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.Authorization;
+
 namespace SporSalonuYonetim.API.Controllers
 {
+    [Authorize]
     public class UsersController : CustomBaseController
     {
         private readonly IMapper _mapper;
@@ -20,6 +23,7 @@ namespace SporSalonuYonetim.API.Controllers
             _mapper = mapper;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> All()
         {
@@ -36,6 +40,7 @@ namespace SporSalonuYonetim.API.Controllers
             return CreateActionResult(ServiceResponse<UserDto>.SuccessResult(userDto));
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Save(UserCreateDto userDto)
         {
@@ -48,7 +53,15 @@ namespace SporSalonuYonetim.API.Controllers
         [HttpPut]
         public async Task<IActionResult> Update(UserUpdateDto userDto)
         {
-            var user = _mapper.Map<User>(userDto);
+            var userResponse = await _service.GetByIdAsync(userDto.Id);
+            if (!userResponse.Success)
+            {
+                return CreateActionResult(ServiceResponse<NoContentDto>.FailResult("Kullanıcı bulunamadı", 404));
+            }
+
+            var user = userResponse.Data;
+            _mapper.Map(userDto, user);
+            
             await _service.UpdateAsync(user);
             return CreateActionResult(ServiceResponse<NoContentDto>.SuccessResult(204));
         }

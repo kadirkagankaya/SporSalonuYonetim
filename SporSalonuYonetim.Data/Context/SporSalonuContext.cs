@@ -19,10 +19,39 @@ namespace SporSalonuYonetim.Data.Context
         {
             base.OnModelCreating(modelBuilder);
             
-            modelBuilder.Entity<User>().ToCollection("users");
-            modelBuilder.Entity<Trainer>().ToCollection("trainers");
-            modelBuilder.Entity<SubscriptionType>().ToCollection("subscription_types");
-            modelBuilder.Entity<WorkoutProgram>().ToCollection("workout_programs");
+            modelBuilder.Entity<User>().ToCollection("users").HasQueryFilter(u => !u.IsDeleted);
+            modelBuilder.Entity<Trainer>().ToCollection("trainers").HasQueryFilter(t => !t.IsDeleted);
+            modelBuilder.Entity<SubscriptionType>().ToCollection("subscription_types").HasQueryFilter(s => !s.IsDeleted);
+            modelBuilder.Entity<WorkoutProgram>().ToCollection("workout_programs").HasQueryFilter(w => !w.IsDeleted);
+        }
+
+        public override int SaveChanges()
+        {
+            ApplyTimestamps();
+            return base.SaveChanges();
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            ApplyTimestamps();
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
+        private void ApplyTimestamps()
+        {
+            var entries = ChangeTracker.Entries<BaseEntity>();
+
+            foreach (var entry in entries)
+            {
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Entity.CreatedAt = DateTime.UtcNow;
+                }
+                else if (entry.State == EntityState.Modified)
+                {
+                    entry.Entity.UpdatedAt = DateTime.UtcNow;
+                }
+            }
         }
     }
 }

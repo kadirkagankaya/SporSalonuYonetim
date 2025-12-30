@@ -14,7 +14,7 @@ namespace SporSalonuYonetim.API.Modules
     {
         public static void RegisterMinimalEndpoints(this WebApplication app)
         {
-            var features = app.MapGroup("/api/features");
+            var features = app.MapGroup("/api/features").RequireAuthorization();
 
             features.MapGet("/subscriptions", async ([FromServices] IService<SubscriptionType> service, [FromServices] IMapper mapper) =>
             {

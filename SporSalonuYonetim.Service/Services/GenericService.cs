@@ -60,7 +60,8 @@ namespace SporSalonuYonetim.Service.Services
                 return ServiceResponse<bool>.FailResult("Kayıt bulunamadı", 404);
             }
 
-            _repository.Remove(hasProduct);
+            hasProduct.IsDeleted = true;
+            _repository.Update(hasProduct);
             await _unitOfWork.CommitAsync();
             return ServiceResponse<bool>.SuccessResult(true, 204);
         }

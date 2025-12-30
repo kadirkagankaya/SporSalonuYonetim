@@ -8,6 +8,7 @@ namespace SporSalonuYonetim.Core.DTOs
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
+        public string Username { get; set; }
         public string Role { get; set; }
         public Guid? SubscriptionTypeId { get; set; }
         public Guid? TrainerId { get; set; }
@@ -18,7 +19,9 @@ namespace SporSalonuYonetim.Core.DTOs
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
+        public string Username { get; set; }
         public string Password { get; set; }
+        public string Role { get; set; } = "User";
         public Guid? SubscriptionTypeId { get; set; }
     }
 
@@ -28,6 +31,8 @@ namespace SporSalonuYonetim.Core.DTOs
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
+        public string Username { get; set; }
+        public string? Role { get; set; }
         public Guid? SubscriptionTypeId { get; set; }
         public Guid? TrainerId { get; set; }
     }

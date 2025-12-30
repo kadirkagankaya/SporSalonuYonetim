@@ -11,7 +11,8 @@ namespace SporSalonuYonetim.Service.Mapping
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<UserCreateDto, User>()
                 .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.Password));
-            CreateMap<UserUpdateDto, User>();
+            CreateMap<UserUpdateDto, User>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
             CreateMap<Trainer, TrainerDto>().ReverseMap();
             CreateMap<TrainerCreateDto, Trainer>();
             CreateMap<TrainerUpdateDto, Trainer>();
