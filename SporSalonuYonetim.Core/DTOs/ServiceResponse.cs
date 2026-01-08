@@ -5,13 +5,13 @@ namespace SporSalonuYonetim.Core.DTOs
 {
     public class ServiceResponse<T>
     {
-        public T Data { get; set; }
+        public T? Data { get; set; }
 
         [JsonIgnore]
         public int StatusCode { get; set; }
 
         public bool Success { get; set; }
-        public string Message { get; set; }
+        public string? Message { get; set; }
 
         public static ServiceResponse<T> SuccessResult(T data, int statusCode = 200)
         {

@@ -10,10 +10,10 @@ namespace SporSalonuYonetim.Data.Context
         {
         }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Trainer> Trainers { get; set; }
-        public DbSet<SubscriptionType> SubscriptionTypes { get; set; }
-        public DbSet<WorkoutProgram> WorkoutPrograms { get; set; }
+        public DbSet<User> Users { get; set; } = null!;
+        public DbSet<Trainer> Trainers { get; set; } = null!;
+        public DbSet<SubscriptionType> SubscriptionTypes { get; set; } = null!;
+        public DbSet<WorkoutProgram> WorkoutPrograms { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

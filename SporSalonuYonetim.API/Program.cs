@@ -40,9 +40,9 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["TokenOptions:Issuer"],
-        ValidAudience = builder.Configuration["TokenOptions:Audience"],
-        IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["TokenOptions:SecurityKey"]))
+        ValidIssuer = builder.Configuration["TokenOptions:Issuer"]!,
+        ValidAudience = builder.Configuration["TokenOptions:Audience"]!,
+        IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["TokenOptions:SecurityKey"]!))
     };
 });
 

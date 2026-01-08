@@ -4,10 +4,10 @@ namespace SporSalonuYonetim.Core.Entities
 {
     public class SubscriptionType : BaseEntity
     {
-        public string Name { get; set; }
+        public required string Name { get; set; }
         public int DurationMonths { get; set; }
         public decimal Price { get; set; }
 
-        public ICollection<User> Users { get; set; }
+        public ICollection<User> Users { get; set; } = new List<User>();
     }
 }

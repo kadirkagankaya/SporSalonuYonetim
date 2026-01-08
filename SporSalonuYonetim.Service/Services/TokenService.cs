@@ -30,13 +30,13 @@ namespace SporSalonuYonetim.Service.Services
                 new Claim(ClaimTypes.Role, user.Role)
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["TokenOptions:SecurityKey"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["TokenOptions:SecurityKey"]!));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires = DateTime.Now.AddMinutes(Convert.ToDouble(_configuration["TokenOptions:AccessTokenExpiration"]));
+            var expires = DateTime.Now.AddMinutes(Convert.ToDouble(_configuration["TokenOptions:AccessTokenExpiration"]!));
 
             var token = new JwtSecurityToken(
-                _configuration["TokenOptions:Issuer"],
-                _configuration["TokenOptions:Audience"],
+                _configuration["TokenOptions:Issuer"]!,
+                _configuration["TokenOptions:Audience"]!,
                 claims,
                 expires: expires,
                 signingCredentials: creds
